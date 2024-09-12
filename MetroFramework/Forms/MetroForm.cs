@@ -505,6 +505,7 @@ namespace MetroFramework.Forms
             CreateShadow();
         }
 
+        [SecuritySafeCritical]
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
