@@ -591,7 +591,7 @@ namespace MetroFramework.Forms
                 case (int)WinApi.Messages.WM_SIZE:
                     if (windowButtonList != null)
                     {
-                        Button btn;
+                        MetroFormButton btn;
                         windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
                         if (btn == null) return;
                         if (WindowState == FormWindowState.Normal)
@@ -699,17 +699,17 @@ namespace MetroFramework.Forms
             Close
         }
 
-        private Dictionary<WindowButtons, Button> windowButtonList;
+        private Dictionary<WindowButtons, MetroFormButton> windowButtonList;
 
         private void AddWindowButton(WindowButtons button)
         {
             if (windowButtonList == null)
-                windowButtonList = new Dictionary<WindowButtons, Button>();
+                windowButtonList = new Dictionary<WindowButtons, MetroFormButton>();
 
             if (windowButtonList.ContainsKey(button))
                 return;
 
-            Button newButton = new Button();
+            MetroFormButton newButton = new MetroFormButton();
 
             if (button == WindowButtons.Close)
             {
@@ -727,8 +727,8 @@ namespace MetroFramework.Forms
                     newButton.Text = "2";
             }
 
-            //newButton.Style = Style;
-            //newButton.Theme = Theme;
+            newButton.Style = Style;
+            newButton.Theme = Theme;
             newButton.Tag = button;
             newButton.Size = new Size(25, 20);
             newButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -741,7 +741,7 @@ namespace MetroFramework.Forms
 
         private void WindowButton_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
+            var btn = sender as MetroFormButton;
             if (btn != null)
             {
                 var btnFlag = (WindowButtons)btn.Tag;
@@ -778,11 +778,11 @@ namespace MetroFramework.Forms
             Point firstButtonLocation = new Point(ClientRectangle.Width - borderWidth - 25, borderWidth);
             int lastDrawedButtonPosition = firstButtonLocation.X - 25;
 
-            Button firstButton = null;
+            MetroFormButton firstButton = null;
 
             if (windowButtonList.Count == 1)
             {
-                foreach (KeyValuePair<WindowButtons, Button> button in windowButtonList)
+                foreach (KeyValuePair<WindowButtons, MetroFormButton> button in windowButtonList)
                 {
                     button.Value.Location = firstButtonLocation;
                 }
